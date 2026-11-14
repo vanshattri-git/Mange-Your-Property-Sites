@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f5f2">
+  <meta name="description" content="Terra Property Manager: manage property listings, plots, enquiries, deals and billing in one place.">
+  <title>Terra Property Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-mark" viewBox="0 0 28 28"><path d="M3 23V12l5-4v15M11 23V8l5-4v19M19 23V5l6-3v21"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 4.3 4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M7 3H5a2 2 0 0 0-2 2c0 9 7 16 16 16a2 2 0 0 0 2-2v-2l-5-2-2 2a14 14 0 0 1-5-5l2-2-2-5Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 5 4 4M4 20l4-.8L19.3 7.9a2.1 2.1 0 0 0-3-3L5 16.2 4 20Z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 14h10l1-14M9 7V4h6v3"/></symbol>
+  </svg>
+
+  <main id="auth-screen" class="auth-screen"><div class="auth-loading"><span class="brand-mark"><svg class="icon"><use href="#i-mark"/></svg></span><span>Opening your workspace…</span></div></main>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" data-page="dashboard" aria-label="Terra Property Manager home"><span class="brand-mark"><svg class="icon"><use href="#i-mark"/></svg></span><span class="brand-name">terra<span>.</span><small>PROPERTY MANAGER</small></span></a>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Workspace">
+        <a href="#dashboard" class="nav-item active" data-page="dashboard"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></a>
+        <a href="#properties" class="nav-item" data-page="properties"><svg class="icon"><use href="#i-house"/></svg><span>Properties</span><span class="nav-count" id="property-count">0</span></a>
+        <a href="#leads" class="nav-item" data-page="leads"><svg class="icon"><use href="#i-users"/></svg><span>Enquiries</span><span class="nav-count" id="lead-count">0</span></a>
+        <a href="#deals" class="nav-item" data-page="deals"><svg class="icon"><use href="#i-briefcase"/></svg><span>Deals</span><span class="nav-count" id="deal-count">0</span></a>
+        <a href="#billing" class="nav-item" data-page="billing"><svg class="icon"><use href="#i-receipt"/></svg><span>Billing</span><span class="nav-count" id="invoice-count">0</span></a>
+        <a href="#map" class="nav-item" data-page="map"><svg class="icon"><use href="#i-map"/></svg><span>India map</span></a>
+      </nav>
+      <div class="sidebar-bottom"><div class="workspace-card"><span class="workspace-avatar" id="workspace-initial">A</span><span class="workspace-copy"><strong id="workspace-name">Your agency</strong><small id="workspace-mobile">Add mobile in settings</small></span></div><button class="account-action" data-action="account">Agency & billing details</button><button class="account-action signout-action" data-action="logout">Sign out</button><p class="sidebar-footnote">This local workspace opens by name. Add a mobile in settings for invoice and listing contacts.</p></div>
+    </aside>
+
+    <section class="main-panel">
+      <header class="topbar"><div class="mobile-brand"><span class="brand-mark"><svg class="icon"><use href="#i-mark"/></svg></span><strong>terra<span>.</span></strong></div><div class="breadcrumb"><span>Workspace</span><span>/</span><strong id="current-section">Overview</strong></div><div class="topbar-actions"><label class="global-search"><svg class="icon"><use href="#i-search"/></svg><input id="global-search" type="search" placeholder="Search your properties" aria-label="Search properties"><kbd>Ctrl K</kbd></label><button class="button button-primary button-small" data-action="add-property"><svg class="icon"><use href="#i-plus"/></svg><span>Add property</span></button></div></header>
+      <div id="page-content" class="page-content" tabindex="-1"></div>
+      <footer class="app-footer">Developed by Vansh Attri <span aria-label="love">♥</span></footer>
+    </section>
+  </div>
+  <canvas id="celebration-canvas" class="celebration-canvas" aria-hidden="true"></canvas>
+  <div id="modal-root" class="modal-root"></div>
+  <div id="drawer-root" class="drawer-root"></div>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>
